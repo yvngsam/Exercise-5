@@ -1,458 +1,221 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой сайт</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Калькулятор стоимости заказа</title>
+    
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        max-width: 850px;
+        margin: 40px auto;
+        padding: 0 24px;
+        line-height: 1.6;
+    }
 
-    <style>
-        .field-error {
-            display: block;
-            margin-top: 5px;
-            color: #c62828;
-            font-size: 14px;
+    h1 {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 26px;
+        margin-top: 35px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input,
+    select {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 420px;
+        min-height: 52px;
+        padding: 12px;
+        font-size: 20px;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 15px 22px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    #quantity-error {
+        color: #c62828;
+        font-weight: bold;
+    }
+
+    #result {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            margin: 20px auto;
+            padding: 0 16px;
+            font-size: 18px;
         }
 
-        input[aria-invalid="true"] {
-            border: 1px solid #c62828;
+        h1 {
+            font-size: 28px;
         }
 
-        #success-message {
-            color: green;
-            font-weight: bold;
+        input,
+        select,
+        button {
+            font-size: 18px;
         }
-    </style>
+
+        button {
+            width: 100%;
+            min-height: 54px;
+        }
+    }
+</style>
 </head>
-
 <body>
 
-    <!-- Шапка сайта -->
-    <header>
-        <div class="header-content">
+    <h1>Калькулятор стоимости заказа</h1>
 
-            <div class="logo">
-                <img src="logo.jpg" alt="Логотип">
-            </div>
+    <form id="order-form" novalidate>
+        <p>
+            <label for="product">Выберите товар:</label>
+            <select id="product" name="product" required>
+                <option value="">-- Выберите товар --</option>
+                <option value="notebook" data-price="50000">Ноутбук — 50000 руб.</option>
+                <option value="mouse" data-price="1500">Мышь — 1500 руб.</option>
+                <option value="keyboard" data-price="3000">Клавиатура — 3000 руб.</option>
+                <option value="monitor" data-price="20000">Монитор — 20000 руб.</option>
+            </select>
+        </p>
 
-            <div class="site-name">
-                Название сайта
-            </div>
+        <p>
+            <label for="quantity">Количество товара:</label>
+            <input
+                type="text"
+                id="quantity"
+                name="quantity"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="Введите количество"
+                required
+                aria-describedby="quantity-error">
+        </p>
 
-        </div>
+        <p id="quantity-error" role="alert" hidden></p>
 
-        <!-- Меню -->
-        <nav>
-            <a href="#table">Ссылка 1</a>
-            <a href="#links">Ссылка 2</a>
-            <a href="#form">Ссылка 3</a>
-        </nav>
-    </header>
+        <button type="submit">Рассчитать стоимость</button>
+    </form>
 
-    <!-- Основное содержимое -->
-    <main>
-
-        <!-- Таблица -->
-        <section id="table">
-            <h2>Таблица</h2>
-
-            <table>
-                <tr>
-                    <th>Название 1</th>
-                    <th>Название 2</th>
-                    <th>Название 3</th>
-                    <th>Название 4</th>
-                </tr>
-
-                <tr>
-                    <td>Ячейка 1</td>
-                    <td>Ячейка 2</td>
-                    <td>Ячейка 3</td>
-                    <td>Ячейка 4</td>
-                </tr>
-
-                <tr>
-                    <td>Ячейка 5</td>
-                    <td colspan="2">Объединённые ячейки</td>
-                    <td>Ячейка 8</td>
-                </tr>
-
-                <tr>
-                    <td>Ячейка 9</td>
-                    <td>Ячейка 10</td>
-                    <td>Ячейка 11</td>
-                    <td>Ячейка 12</td>
-                </tr>
-
-                <tr>
-                    <td rowspan="2">Объединённые строки</td>
-                    <td>Ячейка 14</td>
-                    <td>Ячейка 15</td>
-                    <td>Ячейка 16</td>
-                </tr>
-
-                <tr>
-                    <td>Ячейка 18</td>
-                    <td>Ячейка 19</td>
-                    <td>Ячейка 20</td>
-                </tr>
-            </table>
-        </section>
-
-        <!-- Список гиперссылок -->
-        <section id="links">
-            <h2>Список гиперссылок</h2>
-
-            <ul>
-                <li>
-                    <a href="https://www.google.com/">Google</a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/">YouTube</a>
-                </li>
-                <li>
-                    <a href="https://github.com/">GitHub</a>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Форма -->
-        <section id="form">
-            <h2>Форма</h2>
-
-            <form id="user-form" novalidate>
-
-                <p>
-                    <label for="fullname">ФИО:</label>
-
-                    <input
-                        type="text"
-                        id="fullname"
-                        name="fullname"
-                        autocomplete="name"
-                        required
-                        pattern="[А-Яа-яЁёA-Za-z]+([ -][А-Яа-яЁёA-Za-z]+)*"
-                        title="Введите ФИО только буквами. Разрешены пробелы и дефис, цифры запрещены."
-                        aria-describedby="fullname-error">
-
-                    <span
-                        id="fullname-error"
-                        class="field-error"
-                        role="alert">
-                    </span>
-                </p>
-
-                <p>
-                    <label for="phone">Телефон:</label>
-
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        pattern="[0-9]+"
-                        inputmode="numeric"
-                        title="Телефон должен содержать только цифры."
-                        required>
-                </p>
-
-                <p>
-                    <label for="email">E-mail:</label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required>
-                </p>
-
-                <p>
-                    <label for="birthdate">Дата рождения:</label>
-
-                    <input
-                        type="date"
-                        id="birthdate"
-                        name="birthdate"
-                        max="2026-12-31"
-                        required>
-                </p>
-
-                <fieldset>
-                    <legend>Пол:</legend>
-
-                    <label>
-                        <input
-                            type="radio"
-                            name="gender"
-                            value="male"
-                            required>
-                        Мужской
-                    </label>
-
-                    <br>
-
-                    <label>
-                        <input
-                            type="radio"
-                            name="gender"
-                            value="female">
-                        Женский
-                    </label>
-                </fieldset>
-
-                <p>
-                    <label for="language">
-                        Любимый язык программирования:
-                    </label>
-
-                    <br>
-
-                    <select
-                        id="language"
-                        name="language"
-                        multiple
-                        size="5"
-                        required
-                        title="Выберите хотя бы один язык программирования.">
-
-                        <option value="Pascal">Pascal</option>
-                        <option value="C">C</option>
-                        <option value="C++">C++</option>
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="PHP">PHP</option>
-                        <option value="Python">Python</option>
-                        <option value="Java">Java</option>
-                        <option value="Haskel">Haskel</option>
-                        <option value="Clojure">Clojure</option>
-                        <option value="Prolog">Prolog</option>
-                        <option value="Scala">Scala</option>
-
-                    </select>
-                </p>
-
-                <p>
-                    <label for="biography">Биография:</label>
-
-                    <br>
-
-                    <textarea
-                        id="biography"
-                        name="biography"
-                        rows="5"
-                        cols="40"></textarea>
-                </p>
-
-                <p>
-                    <input
-                        type="checkbox"
-                        id="contract"
-                        name="contract"
-                        required>
-
-                    <label for="contract">
-                        С контрактом ознакомлен(а)
-                    </label>
-                </p>
-
-                <p>
-                    <input type="submit" value="Сохранить">
-                </p>
-
-                <p
-                    id="success-message"
-                    role="status"
-                    aria-live="polite"
-                    hidden>
-                    Форма успешно заполнена!
-                </p>
-
-            </form>
-        </section>
-
-    </main>
-
-    <!-- Подвал сайта -->
-    <footer>
-        (c) Семён Сергеевич Нехаев
-    </footer>
-
-
+    <h2>Результат расчёта</h2>
+    <p id="result" role="status" aria-live="polite">
+        Выберите товар и укажите количество.
+    </p>
 
     <script>
         "use strict";
 
-        const form = document.getElementById("user-form");
-        const fullname = document.getElementById("fullname");
-        const fullnameError = document.getElementById("fullname-error");
-        const phone = document.getElementById("phone");
-        const birthdate = document.getElementById("birthdate");
-        const language = document.getElementById("language");
-        const successMessage = document.getElementById("success-message");
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("order-form");
+            const product = document.getElementById("product");
+            const quantity = document.getElementById("quantity");
+            const quantityError = document.getElementById("quantity-error");
+            const result = document.getElementById("result");
 
-        const maxBirthdate = "2026-12-31";
+            const quantityPattern = /^[0-9]+$/;
 
-        const fioPattern =
-            /^[А-Яа-яЁёA-Za-z]+([ -][А-Яа-яЁёA-Za-z]+)*$/;
-
-        birthdate.max = maxBirthdate;
-
-        // Скрытие сообщения об успехе
-        function hideSuccessMessage() {
-            successMessage.hidden = true;
-        }
-
-        // Проверка ФИО
-        function validateFullname() {
-            const value = fullname.value.trim();
-
-            if (value === "") {
-                fullname.setCustomValidity("Введите ФИО.");
-                fullnameError.textContent = "";
-                fullname.removeAttribute("aria-invalid");
-                return false;
+            function showError(message) {
+                quantityError.textContent = message;
+                quantityError.hidden = false;
+                result.textContent = "Не удалось рассчитать стоимость.";
             }
 
-            if (!fioPattern.test(value)) {
-                const errorText =
-                    "ФИО: только буквы, пробелы и дефисы. Цифры и другие символы запрещены.";
-
-                fullname.setCustomValidity(errorText);
-                fullnameError.textContent = errorText;
-                fullname.setAttribute("aria-invalid", "true");
-
-                return false;
+            function clearError() {
+                quantityError.textContent = "";
+                quantityError.hidden = true;
             }
 
-            fullname.setCustomValidity("");
-            fullnameError.textContent = "";
-            fullname.removeAttribute("aria-invalid");
+            quantity.addEventListener("input", function () {
+                clearError();
+                result.textContent = "Нажмите кнопку для расчёта стоимости.";
+            });
 
-            return true;
-        }
+            product.addEventListener("change", function () {
+                clearError();
+                result.textContent = "Нажмите кнопку для расчёта стоимости.";
+            });
 
-        // Предупреждение появляется сразу при вводе или вставке цифр
-        fullname.addEventListener("input", function () {
-            validateFullname();
-            hideSuccessMessage();
-        });
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
 
-        // Проверка телефона
-        phone.addEventListener("input", function () {
-            phone.setCustomValidity("");
+                clearError();
 
-            if (phone.value !== "" && !/^[0-9]+$/.test(phone.value)) {
-                phone.setCustomValidity(
-                    "Телефон должен содержать только цифры."
-                );
-            }
+                if (product.value === "") {
+                    result.textContent = "Не удалось рассчитать стоимость.";
+                    quantityError.textContent = "Пожалуйста, выберите товар.";
+                    quantityError.hidden = false;
+                    product.focus();
+                    return;
+                }
 
-            hideSuccessMessage();
-        });
+                const quantityValue = quantity.value.trim();
 
-        // Проверка даты
-        birthdate.addEventListener("change", function () {
-            birthdate.setCustomValidity("");
+                if (quantityValue === "") {
+                    showError("Введите количество товара.");
+                    quantity.focus();
+                    return;
+                }
 
-            if (
-                birthdate.value !== "" &&
-                birthdate.value > maxBirthdate
-            ) {
-                birthdate.setCustomValidity(
-                    "Дата рождения не может быть позже 31.12.2026."
-                );
-            }
+                if (!quantityPattern.test(quantityValue)) {
+                    showError(
+                        "Ошибка: количество должно содержать только цифры."
+                    );
+                    quantity.focus();
+                    return;
+                }
 
-            hideSuccessMessage();
-        });
+                const count = Number(quantityValue);
 
-        // Проверка выбора языка
-        language.addEventListener("change", function () {
-            language.setCustomValidity("");
+                if (!Number.isSafeInteger(count) || count <= 0) {
+                    showError(
+                        "Количество должно быть целым числом больше нуля."
+                    );
+                    quantity.focus();
+                    return;
+                }
 
-            if (language.selectedOptions.length === 0) {
-                language.setCustomValidity(
-                    "Выберите хотя бы один язык программирования."
-                );
-            }
+                const selectedOption = product.options[product.selectedIndex];
+                const price = Number(selectedOption.dataset.price);
 
-            hideSuccessMessage();
-        });
+                if (!Number.isFinite(price) || price <= 0) {
+                    showError("Не удалось определить цену выбранного товара.");
+                    product.focus();
+                    return;
+                }
 
-        // Скрытие сообщения при изменении остальных полей
-        form.addEventListener("input", function () {
-            hideSuccessMessage();
-        });
+                const total = price * count;
 
-        form.addEventListener("change", function () {
-            hideSuccessMessage();
-        });
+                if (!Number.isSafeInteger(total)) {
+                    showError("Слишком большое количество товара.");
+                    quantity.focus();
+                    return;
+                }
 
-        // Проверка формы без отправки на сервер
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            hideSuccessMessage();
-
-            // ФИО
-            if (!validateFullname()) {
-                fullname.reportValidity();
-                fullname.focus();
-                return;
-            }
-
-            // Телефон
-            phone.setCustomValidity("");
-
-            if (!/^[0-9]+$/.test(phone.value.trim())) {
-                phone.setCustomValidity(
-                    "Телефон должен содержать только цифры."
-                );
-
-                phone.reportValidity();
-                phone.focus();
-                return;
-            }
-
-            // Дата рождения
-            birthdate.setCustomValidity("");
-
-            if (
-                birthdate.value === "" ||
-                birthdate.value > maxBirthdate
-            ) {
-                birthdate.setCustomValidity(
-                    "Укажите дату рождения не позже 31.12.2026."
-                );
-
-                birthdate.reportValidity();
-                birthdate.focus();
-                return;
-            }
-
-            // Проверка выбора хотя бы одного языка
-            language.setCustomValidity("");
-
-            if (language.selectedOptions.length === 0) {
-                language.setCustomValidity(
-                    "Выберите хотя бы один язык программирования."
-                );
-
-                language.reportValidity();
-                language.focus();
-                return;
-            }
-
-            // Проверка всех обязательных полей
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            // Все проверки пройдены
-            successMessage.hidden = false;
+                result.textContent =
+                    "Стоимость заказа: " +
+                    total.toLocaleString("ru-RU") +
+                    " руб.";
+            });
         });
     </script>
 
 </body>
 </html>
-
